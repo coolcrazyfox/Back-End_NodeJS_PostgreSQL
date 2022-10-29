@@ -57,6 +57,15 @@ create TABLE website(
     categories_id INTEGER NOT NULL,
     FOREIGN KEY (categories_id) REFERENCES categories(id)
 );
+create TABLE all_info(
+    id SERIAL PRIMARY KEY,
+    categories_id INTEGER NOT NULL,
+    website_id INTEGER NOT NULL,
+
+    data VARCHAR(25) ,
+    categories_id INTEGER NOT NULL,
+    FOREIGN KEY (categories_id) REFERENCES categories(id)
+);
 -- INSERT INTO categories (name) values ('ebay');
 -- INSERT INTO categories (name) values ('avita');
 -- INSERT INTO categories (name) values ('alegro');
