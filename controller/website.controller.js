@@ -69,7 +69,7 @@ class WebsiteController{
             if (!id){
                 res.status(400).json({message:"id isn't specified"})
             }
-            const web= await db.query('UPDATE website SET brand =$1, model =$2, device =$3, oem =$4, price =$5, link =$6 img =$7, data =$8, categories_id=$9  WHERE id = $10 RETURNING *',
+            const web= await db.query('UPDATE website SET brand =$1, model =$2, device =$3, oem =$4, price =$5, link =$6, img =$7, data =$8, categories_id=$9  WHERE id = $10 RETURNING *',
                 [
                     brand,
                     model,
