@@ -58,14 +58,17 @@ create TABLE website(
     FOREIGN KEY (categories_id) REFERENCES categories(id)
 );
 create TABLE all_info(
-    id SERIAL PRIMARY KEY,
+    PRIMARY KEY (categories_id, website_id),
     categories_id INTEGER NOT NULL,
     website_id INTEGER NOT NULL,
-
-    data VARCHAR(25) ,
-    categories_id INTEGER NOT NULL,
-    FOREIGN KEY (categories_id) REFERENCES categories(id)
+    data timestamp DEFAULT CURRENT_TIMESTAMP,
+    state VARCHAR(100),
+    best_price VARCHAR(50),
+    FOREIGN KEY (categories_id) REFERENCES categories(id),
+    FOREIGN KEY (website_id) REFERENCES website(id)
 );
+INSERT INTO all_info (data, state, best_price, categories_id, website_id ) values ('2022-10-29', '', '', 1, 1), ('2022-10-29', '', '', 1, 2), ('2022-10-29', '', '', 1, 3), ('2022-10-29', '', '', 2, 1), ('2022-10-29', '', '', 3, 1), ('2022-10-29', '', '', 4, 1);
+
 -- INSERT INTO categories (name) values ('ebay');
 -- INSERT INTO categories (name) values ('avita');
 -- INSERT INTO categories (name) values ('alegro');

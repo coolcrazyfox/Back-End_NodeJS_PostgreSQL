@@ -14,7 +14,18 @@ class WebsiteController{
                 data,
                 categoriesId
             }=req.body
-            const newWeb =await db.query(`INSERT INTO website(brand, model, device, oem, price, link, img, data, categories_id) values ($1, $2) RETURNING *`, [brand, model, device, oem, price, link, img, data, categoriesId])
+            const newWeb =await db.query(`INSERT INTO website(brand, model, device, oem, price, link, img, data, categories_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+                [
+                    brand,
+                    model,
+                    device,
+                    oem,
+                    price,
+                    link,
+                    img,
+                    data,
+                    categoriesId
+                ])
 
             res.json(newWeb.rows[0])
         }catch (e){
@@ -30,18 +41,18 @@ class WebsiteController{
             res.status(500).json(e)
         }
     }
-    async testSelect(req, res){
-        try{
-            // const id = req.params.id
-            // const user =await db.query('SELECT * FROM person WHERE id = $1', [id])
-            // res.json(user.rows[0])
-            const test= await db.query(`SELECT  website.id, categories_id, categories.name, website.brand, website.model, website.device, website.oem, website.price, website.price, website.link, website.img, website.data from website, categories where categories.id = website.categories_id order by website.oem`)
-            res.json(test.rows)
-
-        }catch (e) {
-            res.status(500).json(e)
-        }
-    }
+    // async testSelect(req, res){
+    //     try{
+    //         // const id = req.params.id
+    //         // const user =await db.query('SELECT * FROM person WHERE id = $1', [id])
+    //         // res.json(user.rows[0])
+    //         const test= await db.query(`SELECT  website.id, categories_id, categories.name, website.brand, website.model, website.device, website.oem, website.price, website.price, website.link, website.img, website.data from website, categories where categories.id = website.categories_id order by website.oem`)
+    //         res.json(test.rows)
+    //
+    //     }catch (e) {
+    //         res.status(500).json(e)
+    //     }
+    // }
     async updateWebsite(req,res){
         try{
             const {id,
