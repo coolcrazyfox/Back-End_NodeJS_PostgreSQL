@@ -1,0 +1,14 @@
+.main_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 1440px;
+  height: 100vh;
+  /*background: rgb(194, 221, 224);*/
+  /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
+  background: linear-gradient(45deg, rgba(253, 211, 211, 0.6), rgba(69, 140, 140, 0.9)), url(https://images.dailyhive.com/20211015162815/kucid.jpg);
+  background-size: cover;
+
+
+}

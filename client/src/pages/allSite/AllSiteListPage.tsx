@@ -1,0 +1,222 @@
+import  React, {Fragment, useEffect, useRef, useState} from 'react';
+// @ts-ignore
+import s from "../../style/Table.module.css";
+import {Pagination} from "../../common/c12-Pagination/Pagination";
+import EditDevice from "../../components/EditDevice";
+import {BsFillFolderSymlinkFill, BsImage} from "react-icons/bs";
+import SearchInput from "../../components/search/SearchInput";
+import {useScroll} from "../../hook/useScroll";
+
+
+export interface AllSiteTable {
+    id: number
+    categories_id?: number
+    name: string
+    brand: string
+    model: string
+    device: string
+    oem: string
+    price: string
+    link: string
+    img: string
+    data: string
+    // id: string
+    // model: string
+    // country: string
+    // device: string
+    // oem: string
+    // count: string
+    // price: string
+    // link: string
+    // image: string
+    // datetime: string
+
+}
+
+interface AllSiteContainer extends Array<AllSiteTable> {
+}
+
+export const baseUrl = "http://localhost:8090/api/web/t"
+
+const AllSiteListPage = () => {
+    const [todos, setTodos] = useState<AllSiteContainer>([]);
+    const [searchValue, setSearchValue] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [devicePerPage] = useState(10)
+
+    // scroll
+    const hasScroll = todos.length > 3
+    const todoWrapper = useRef(null)
+    useScroll(todoWrapper, hasScroll)
+
+
+    const getTodos = async () => {
+        try {
+            setLoading(true)
+            const response = await fetch(baseUrl);
+            const jsonData = await response.json();
+            setTodos(jsonData);
+            setLoading(false)
+            // console.log('state',setTodos(jsonData))
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    // const deleteTodo = async (id: string) => {
+    //     try {
+    //         const deleteTodo = await fetch(
+    //             `http://localhost:7000/device/all/${id}`,
+    //             {
+    //                 method: "DELETE",
+    //             }
+    //         );
+    //         setTodos(todos.filter((todo) => todo.id !== id));
+    //     } catch (error) {
+    //         console.error(error.message);
+    //     }
+    // };
+
+    useEffect(() => {
+        getTodos();
+        console.log('getTodos', getTodos)
+
+    }, []);
+
+    // pagination
+
+    const lastIndex = currentPage * devicePerPage
+    const firstIndex = lastIndex - devicePerPage
+    const currentDevice = todos.slice(firstIndex, lastIndex)
+    const paginate = (pageNum: number) => setCurrentPage(pageNum)
+
+    //search
+
+    // const [searchValue, setSearchValue]= useState('')
+    const filterDevice = todos.filter((dev) => {
+        return dev.oem.toLowerCase().includes(searchValue.toLowerCase())
+    })
+
+    return (
+        <Fragment>
+            {/*{loading && <Loader/>}*/}
+            {/*{error && <ErrorMessage error={error}/>}*/}
+            <div> All Site Table Form</div>
+
+            <div className={s.tab_container}>
+                <div className={s.header_title_tab}>
+
+                    <Pagination totalCount={todos.length}
+
+                                pageSize={devicePerPage}
+                                currentPage={currentPage}
+                                onChangedPage={paginate}/>
+
+                    <SearchInput searchValue={searchValue} setSearchValue={setSearchValue}/>
+
+
+                </div>
+
+                <table className={s.table_first}>
+                    <thead>
+                    <tr>
+                        <th>Category_id</th>
+                        <th>Date</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Device</th>
+                        <th>OEM</th>
+                        <th>Price_ebay</th>
+                        <th>name</th>
+                        <th>Link</th>
+                        <th>Image</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+
+                <table className={s.table}>
+
+                    <div style={{height: hasScroll ? '285px' : 'auto', minHeight: '120px'}} ref={todoWrapper}>
+
+                        <thead>
+                        <tr>
+                            <th>Category_id</th>
+                            <th>Date</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Device</th>
+                            <th>OEM</th>
+                            <th>Price_ebay</th>
+                            <th>name</th>
+                            <th>Link</th>
+                            <th>Image</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {
+                            filterDevice
+
+                                // currentDevice
+                                // todos
+                                // .sort((a, b) => +a.completed - +b.completed)
+                                .map((todo) => {
+                                        return (
+                                            <tr key={todo.id}>
+                                                <td>{todo.categories_id}</td>
+                                                <td>{todo.data}</td>
+                                                <td>{todo.brand}</td>
+                                                <td>{todo.model}</td>
+                                                <td>{todo.device}</td>
+                                                <td>{todo.oem}</td>
+                                                <td>{todo.price}</td>
+                                                <td>{todo.name}</td>
+                                                <td>
+                                                    <a href={todo.link}>
+                                                        <BsFillFolderSymlinkFill/>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href={todo.img}>
+                                                        <BsImage/>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {/*<button onClick={()=><EditDevice todo={todo}/>}>Edit</button>*/}
+                                                    <EditDevice todo={todo}/>
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        className="btn btn-danger"
+                                                        // onClick={() => deleteTodo(todo.id)}
+                                                        onClick={() => {}}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>)
+
+                                    }
+                                )
+                        }
+
+
+                        </tbody>
+                    </div>
+                </table>
+
+
+            </div>
+        </Fragment>
+    );
+};
+
+export default AllSiteListPage;

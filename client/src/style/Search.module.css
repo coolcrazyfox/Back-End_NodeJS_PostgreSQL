@@ -1,0 +1,57 @@
+/*.search_container{*/
+/*    position: relative;*/
+/*    display: block;*/
+/*    width: 95%;*/
+
+/*    !*display: flex;*!*/
+/*    !*justify-content: center;*!*/
+/*    !*flex-direction: column;*!*/
+/*    !*max-width: 300px;*!*/
+/*    !*min-width: auto;*!*/
+/*    !*font-family: Alef   sans-serif;*!*/
+/*    !*background: red;*!*/
+/*}*/
+/*.search_box{*/
+/*    !*display: flex;*!*/
+/*   !* justify-content: center;*!*/
+/*   !*flex-direction: column;*!*/
+/*}*/
+.wrap{
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 10px;
+
+}
+
+.wrap .input_search {
+    background: rgba(248, 247, 247, 0.9);
+    opacity: 0.5;
+    border: 2px solid #5b2b2b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(12, 5, 9, 0.84), inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    height: 36px;
+    width: 100%;
+    padding: 10px;
+    color: black;
+}
+
+.wrap .input_search:focus {
+    outline: none;
+    border: 2px solid #1b2616;
+}
+
+.wrap .btnSearch {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    /*right: 10px;*/
+    border: none;
+    background: #1b2616;
+    /*background: url(/src/ui/search/IconSearch.svg) no-repeat center/contain;*/
+    cursor: pointer;
+    z-index: 2;
+    top: 25%;
+    opacity: 1;
+}

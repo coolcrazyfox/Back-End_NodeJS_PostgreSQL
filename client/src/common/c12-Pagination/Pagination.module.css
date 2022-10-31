@@ -1,0 +1,74 @@
+.pagesWrapper {
+    display: flex;
+    color: #2D2E46;
+    font-size: 16px;
+    border:1px solid #403f50;
+    background: rgba(64, 63, 80, 0.38);
+    border-radius: 5px;
+    margin-left: 30px;
+    position: relative;
+}
+
+.page:hover {
+    font-weight: bold;
+    pointer-events: all;
+    color: rgba(66, 168, 132, 0.74);
+    background: rgb(205, 205, 217);
+
+}
+
+.page{
+    pointer-events: all;
+    border:1px solid #403f50;
+    margin: 4px 5px 4px 5px ;
+    background: #f3f3f3;
+    border-radius: 5px;
+}
+
+.pageActive {
+    pointer-events: none;
+}
+
+.pageList {
+    display: flex;
+    /*position: absolute;*/
+    /*left: 40px;*/
+    /*flex-wrap: wrap;*/
+    /*gap: 10px;*/
+}
+
+.currentPage {
+    background: rgb(64, 63, 80);
+    border-radius: 5px;
+    color: #F2F5F7;
+    user-select: none;
+    padding: 5px;
+    min-width: 24px;
+    width: content-box;
+    text-align: center;
+}
+
+/*.page {*/
+/*  min-width: 24px;*/
+/*  cursor: pointer;*/
+/*  padding: 5px;*/
+/*  width: content-box;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.prev{*/
+/*  position: absolute;*/
+/*}*/
+
+/*.next{*/
+/*  position: absolute;*/
+/*  left: calc();*/
+/*}*/
+
+.pagesWrapper span {
+    min-width: 24px;
+    cursor: pointer;
+    padding: 5px;
+    width: content-box;
+    text-align: center;
+}

@@ -1,0 +1,8 @@
+.hero {
+    background: url('https://images.hdqwalls.com/wallpapers/ferrari-sf90-stradale-5k-w5.jpg')
+    no-repeat center/cover;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+}

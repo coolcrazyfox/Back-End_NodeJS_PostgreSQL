@@ -1,0 +1,75 @@
+.modal{
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    /*transform: scale(0);*/
+    transition: 0.5s;
+}
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+    /*transform: scale(1);*/
+}
+.modal_content{
+    /*padding-right: 20px;*/
+    border-radius: 12px;
+    background: rgb(187, 187, 187);
+    transform: scale(0.5);
+    transition: 0.4s all;
+    /*width: 50vw;*/
+
+    /*height: 200px;*/
+    /*width: 400px;*/
+}
+.modal_content.active{
+    transform: scale(1);
+
+}
+.table_modal {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+.table_modal thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    background: rgb(64, 63, 80);
+    font-size: 14px;
+    color: #f3f3f3;
+}
+.table_modal thead tr th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+.table_modal thead tr th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+.table_modal tbody td {
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: top;
+}
+.table_modal tbody tr:nth-child(even){
+    background: #f3f3f3;
+}
+.table_modal tbody tr td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+.table_modal tbody tr td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+.table_modal tbody td a{
+    text-decoration: none;
+    color: #1b2616;
+}
