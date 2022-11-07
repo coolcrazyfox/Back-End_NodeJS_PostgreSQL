@@ -1,18 +1,18 @@
-import  React, {Fragment, useEffect, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 
 import s from "../../style/Table.module.css";
 import {Pagination} from "../../common/c12-Pagination/Pagination";
 import EditDevice from "../../components/EditDevice";
 import {BsFillFolderSymlinkFill, BsImage} from "react-icons/bs";
 import SearchInput from "../../components/search/SearchInput";
-import {useScroll}from '../../hook/useScroll'
-
+import {useScroll} from '../../hook/useScroll'
 
 
 export const baseUrl = "http://localhost:8090/api/web/t"
 
 const AllSiteListPage = () => {
     const [todos, setTodos] = useState([]);
+    const [category, setCategory] = useState([])
     const [searchValue, setSearchValue] = useState('')
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
@@ -52,12 +52,27 @@ const AllSiteListPage = () => {
             console.error(error.message);
         }
     };
+    const getCategory = async () => {
+        try {
+            setLoading(true)
+            const response = await fetch("http://localhost:8090/api/cat");
+            const jsonData = await response.json();
+            setCategory(jsonData);
+            setLoading(false)
+            // console.log('state',setTodos(jsonData))
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     useEffect(() => {
         getTodos();
-        deleteTodo()
+        deleteTodo();
+        getCategory()
         console.log('getTodos', getTodos)
         console.log('deleteTodo', deleteTodo)
+
 
     }, []);
 
@@ -75,8 +90,6 @@ const AllSiteListPage = () => {
         return dev.oem.toLowerCase().includes(searchValue.toLowerCase())
     })
     //name site
-
-
 
 
     return (
@@ -102,15 +115,15 @@ const AllSiteListPage = () => {
                 <table className={s.table_first}>
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>C_id</th>
+                        {/*<th>id</th>*/}
+                        {/*<th>C_id</th>*/}
                         <th>Date</th>
                         <th>Brand</th>
                         <th>Model</th>
                         <th>Device</th>
                         <th>OEM</th>
-                        <th>Price_ebay</th>
-                        <th>nameSite</th>
+                        {category.map((c) =>  <th key={c.id}>{c.name}</th> )}
+
                         <th>Link</th>
                         <th>Image</th>
                         <th>Edit</th>
@@ -128,14 +141,14 @@ const AllSiteListPage = () => {
 
                         <thead>
                         <tr>
-                            <th>id</th>
-                            <th>C_id</th>
+                            {/*<th>id</th>*/}
+                            {/*<th>C_id</th>*/}
                             <th>Date</th>
                             <th>Brand</th>
                             <th>Model</th>
                             <th>Device</th>
                             <th>OEM</th>
-                            <th>Price_ebay</th>
+                            {/*{category.map((c) =>  <th key={c.id}>{c.name}</th> )}*/}
                             <th>name</th>
                             <th>Link</th>
                             <th>Image</th>
@@ -154,15 +167,29 @@ const AllSiteListPage = () => {
                                 .map((todo) => {
                                         return (
                                             <tr key={todo.id}>
-                                                <td>{todo.id}</td>
-                                                <td>{todo.categories_id}</td>
+                                                {/*<td>{todo.id}</td>*/}
+                                                {/*<td>{todo.categories_id}</td>*/}
                                                 <td>{todo.data}</td>
                                                 <td>{todo.brand}</td>
                                                 <td>{todo.model}</td>
                                                 <td>{todo.device}</td>
                                                 <td>{todo.oem}</td>
-                                                <td>{todo.price}</td>
-                                                <td>{todo.name}</td>
+                                                {todo.categories_id===1 ?(
+                                                <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===2 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===3 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===4 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===5 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===6 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {todo.categories_id===7 ?(
+                                                    <td>{todo.price}</td>): <td></td>}
+                                                {/*{category.map((c) =>  <td key={c.id}>{c.id}</td> )}*/}
+
                                                 <td>
                                                     <a href={todo.link}>
                                                         <BsFillFolderSymlinkFill/>
