@@ -1,45 +1,18 @@
 import  React, {Fragment, useEffect, useRef, useState} from 'react';
-// @ts-ignore
+
 import s from "../../style/Table.module.css";
 import {Pagination} from "../../common/c12-Pagination/Pagination";
 import EditDevice from "../../components/EditDevice";
 import {BsFillFolderSymlinkFill, BsImage} from "react-icons/bs";
 import SearchInput from "../../components/search/SearchInput";
-import {useScroll} from "../../hook/useScroll";
+import {useScroll}from '../../hook/useScroll'
 
 
-export interface AllSiteTable {
-    id: number
-    categories_id?: number
-    name: string
-    brand: string
-    model: string
-    device: string
-    oem: string
-    price: string
-    link: string
-    img: string
-    data: string
-    // id: string
-    // model: string
-    // country: string
-    // device: string
-    // oem: string
-    // count: string
-    // price: string
-    // link: string
-    // image: string
-    // datetime: string
-
-}
-
-interface AllSiteContainer extends Array<AllSiteTable> {
-}
 
 export const baseUrl = "http://localhost:8090/api/web/t"
 
 const AllSiteListPage = () => {
-    const [todos, setTodos] = useState<AllSiteContainer>([]);
+    const [todos, setTodos] = useState([]);
     const [searchValue, setSearchValue] = useState('')
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
@@ -89,7 +62,7 @@ const AllSiteListPage = () => {
     const lastIndex = currentPage * devicePerPage
     const firstIndex = lastIndex - devicePerPage
     const currentDevice = todos.slice(firstIndex, lastIndex)
-    const paginate = (pageNum: number) => setCurrentPage(pageNum)
+    const paginate = (pageNum) => setCurrentPage(pageNum)
 
     //search
 
@@ -121,7 +94,8 @@ const AllSiteListPage = () => {
                 <table className={s.table_first}>
                     <thead>
                     <tr>
-                        <th>Category_id</th>
+                        <th>id</th>
+                        <th>C_id</th>
                         <th>Date</th>
                         <th>Brand</th>
                         <th>Model</th>
@@ -146,7 +120,8 @@ const AllSiteListPage = () => {
 
                         <thead>
                         <tr>
-                            <th>Category_id</th>
+                            <th>id</th>
+                            <th>C_id</th>
                             <th>Date</th>
                             <th>Brand</th>
                             <th>Model</th>
@@ -171,6 +146,7 @@ const AllSiteListPage = () => {
                                 .map((todo) => {
                                         return (
                                             <tr key={todo.id}>
+                                                <td>{todo.id}</td>
                                                 <td>{todo.categories_id}</td>
                                                 <td>{todo.data}</td>
                                                 <td>{todo.brand}</td>

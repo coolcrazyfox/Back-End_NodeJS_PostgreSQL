@@ -18,4 +18,4 @@ const useScroll = (root,hasScroll)=>{
         }
     }, [root, hasScroll]);
 }
-export {useScroll}
+export  {useScroll}
