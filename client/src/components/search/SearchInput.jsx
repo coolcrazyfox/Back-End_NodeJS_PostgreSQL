@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from '../../style/Search.module.css';
+import {AiOutlineClear} from "react-icons/ai";
 
 // https://www.youtube.com/watch?v=VHQxz5Cdrc8&ab_channel=ArchakovBlog
 const SearchInput = ({searchValue, setSearchValue}) => {
@@ -19,7 +20,8 @@ const SearchInput = ({searchValue, setSearchValue}) => {
                        style={{width:"200px"}}
                 />
             {searchValue &&(
-                <button onClick={()=>setSearchValue('')}>x</button>
+                <AiOutlineClear onClick={()=>setSearchValue('')} style={{fontSize:"20px" , color:'darkred' }}/>
+                // <button onClick={()=>setSearchValue('')}>x</button>
             )}
 
 

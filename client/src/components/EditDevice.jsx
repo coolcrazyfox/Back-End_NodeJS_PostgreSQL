@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import {FaEdit} from "react-icons/fa";
 
 const EditDevice = ({todo}) => {
     const [data, setDate] = useState(todo.data);
@@ -63,9 +64,11 @@ const EditDevice = ({todo}) => {
 
     return (
         <Fragment>
-            <Button variant="primary" onClick={handleShow}>
-                Edit
-            </Button>
+            <FaEdit onClick={handleShow} style={{fontSize: '23px', color: '#0F4888FF', paddingTop: '4px', cursor: 'pointer'}}/>
+            {/*<FcEditImage onClick={handleShow} style={{fontSize: '22px'}}/>*/}
+            {/*<Button variant="primary" onClick={handleShow} size="sm">*/}
+            {/*    Edit*/}
+            {/*</Button>*/}
 
             <Modal show={show} onHide={handleClose} onClick={handelEditForm}>
                 <Modal.Header closeButton>

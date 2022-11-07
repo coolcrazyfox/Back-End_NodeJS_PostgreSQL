@@ -4,8 +4,10 @@ import s from "../../style/Table.module.css";
 import {Pagination} from "../../common/c12-Pagination/Pagination";
 import EditDevice from "../../components/EditDevice";
 import {BsFillFolderSymlinkFill, BsImage} from "react-icons/bs";
+import {RiDeleteBin6Line} from "react-icons/ri";
 import SearchInput from "../../components/search/SearchInput";
 import {useScroll} from '../../hook/useScroll'
+
 
 
 export const baseUrl = "http://localhost:8090/api/web/t"
@@ -122,8 +124,7 @@ const AllSiteListPage = () => {
                         <th>Model</th>
                         <th>Device</th>
                         <th>OEM</th>
-                        {category.map((c) =>  <th key={c.id}>{c.name}</th> )}
-
+                        {category.map((c) =>  <th style={{ textTransform:'uppercase'}} key={c.id}>{c.name}</th> )}
                         <th>Link</th>
                         <th>Image</th>
                         <th>Edit</th>
@@ -175,43 +176,44 @@ const AllSiteListPage = () => {
                                                 <td>{todo.device}</td>
                                                 <td>{todo.oem}</td>
                                                 {todo.categories_id===1 ?(
-                                                <td>{todo.price}</td>): <td></td>}
+                                                <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===2 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===3 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===4 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===5 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===6 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {todo.categories_id===7 ?(
-                                                    <td>{todo.price}</td>): <td></td>}
+                                                    <td style={{fontWeight:'bolder'}}>{todo.price}</td>): <td></td>}
                                                 {/*{category.map((c) =>  <td key={c.id}>{c.id}</td> )}*/}
 
                                                 <td>
                                                     <a href={todo.link}>
-                                                        <BsFillFolderSymlinkFill/>
+                                                        <BsFillFolderSymlinkFill style={{color:'#b47112', fontSize: '20px'}}/>
                                                     </a>
                                                 </td>
                                                 <td>
                                                     <a href={todo.img}>
-                                                        <BsImage/>
+                                                        <BsImage style={{fontSize: '20px', color: '#0C6B6BFF'}}/>
                                                     </a>
                                                 </td>
                                                 <td>
                                                     {/*<button onClick={()=><EditDevice todo={todo}/>}>Edit</button>*/}
                                                     <EditDevice todo={todo}/>
                                                 </td>
-                                                <td>
-                                                    <button
-                                                        className="btn btn-danger"
-                                                        onClick={() => deleteTodo(todo.id)}
-                                                        // onClick={() => {}}
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                <td style={{fontSize:'20px'}}>
+                                                    {/*<button*/}
+                                                    {/*    // size="sm"*/}
+                                                    {/*    // className="btn btn-danger"*/}
+                                                    {/*    onClick={() => deleteTodo(todo.id)}*/}
+                                                    {/*    // onClick={() => {}}*/}
+                                                    {/*>*/}
+                                                        <RiDeleteBin6Line style={{color:'darkred'}} type={'button'} onClick={() => deleteTodo(todo.id)}/>
+                                                    {/*</button>*/}
                                                 </td>
                                             </tr>)
 
