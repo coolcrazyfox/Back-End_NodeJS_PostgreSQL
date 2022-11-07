@@ -19,7 +19,7 @@ const AllSiteListPage = () => {
     const [devicePerPage] = useState(10)
 
     // scroll
-    const hasScroll = todos.length > 3
+    const hasScroll = todos.length > 4
     const todoWrapper = useRef(null)
     useScroll(todoWrapper, hasScroll)
 
@@ -32,28 +32,32 @@ const AllSiteListPage = () => {
             setTodos(jsonData);
             setLoading(false)
             // console.log('state',setTodos(jsonData))
+
         } catch (error) {
             console.error(error.message);
         }
     };
 
-    // const deleteTodo = async (id: string) => {
-    //     try {
-    //         const deleteTodo = await fetch(
-    //             `http://localhost:7000/device/all/${id}`,
-    //             {
-    //                 method: "DELETE",
-    //             }
-    //         );
-    //         setTodos(todos.filter((todo) => todo.id !== id));
-    //     } catch (error) {
-    //         console.error(error.message);
-    //     }
-    // };
+    const deleteTodo = async (id) => {
+        try {
+            const deleteTodo = await fetch(
+                `http://localhost:8090/api/web/${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            setTodos(todos.filter((todo) => todo.id !== id));
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     useEffect(() => {
         getTodos();
+        deleteTodo()
         console.log('getTodos', getTodos)
+        console.log('deleteTodo', deleteTodo)
 
     }, []);
 
@@ -70,12 +74,16 @@ const AllSiteListPage = () => {
     const filterDevice = todos.filter((dev) => {
         return dev.oem.toLowerCase().includes(searchValue.toLowerCase())
     })
+    //name site
+
+
+
 
     return (
         <Fragment>
             {/*{loading && <Loader/>}*/}
             {/*{error && <ErrorMessage error={error}/>}*/}
-            <div> All Site Table Form</div>
+
 
             <div className={s.tab_container}>
                 <div className={s.header_title_tab}>
@@ -102,7 +110,7 @@ const AllSiteListPage = () => {
                         <th>Device</th>
                         <th>OEM</th>
                         <th>Price_ebay</th>
-                        <th>name</th>
+                        <th>nameSite</th>
                         <th>Link</th>
                         <th>Image</th>
                         <th>Edit</th>
@@ -172,8 +180,8 @@ const AllSiteListPage = () => {
                                                 <td>
                                                     <button
                                                         className="btn btn-danger"
-                                                        // onClick={() => deleteTodo(todo.id)}
-                                                        onClick={() => {}}
+                                                        onClick={() => deleteTodo(todo.id)}
+                                                        // onClick={() => {}}
                                                     >
                                                         Delete
                                                     </button>

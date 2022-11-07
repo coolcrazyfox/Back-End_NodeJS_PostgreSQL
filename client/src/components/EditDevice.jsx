@@ -1,43 +1,42 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const EditDevice = ({todo}) => {
+    const [data, setDate] = useState(todo.data);
+    const [brand, setBrand] = useState(todo.brand);
     const [model, setModel] = useState(todo.model);
-    const [country, setCountry] = useState(todo.country);
     const [device, setDevice] = useState(todo.device);
     const [oem, setOem] = useState(todo.oem);
-    const [count_ebay, setCountEbay] = useState(todo.count_ebay);
-    const [price_ebay, setPriceEbay] = useState(todo.price_ebay);
-    const [price_store, setPriceStore] = useState(todo.price_store);
-    const [count_store, setCountStore] = useState(todo.count_store);
-    const [link, setLinkAdr] = useState(todo.link);
-    const [image, setImage] = useState(todo.image);
-    const [datetime, setDateTime] = useState(todo.datetime);
+    const [price, setPrice] = useState(todo.price);
 
-    const updateDevice = async e => {
+    const [link, setLinkAdr] = useState(todo.link);
+    const [img, setImage] = useState(todo.img);
+    const [categoriesId, setCategoriesId] = useState(todo.categories_id);
+
+
+    const updateDevice = async (e) => {
         e.preventDefault();
         try {
             const body = {
+                brand,
                 model,
-                country,
                 device,
                 oem,
-                count_ebay,
-                price_ebay,
-                price_store,
-                count_store,
+                price,
                 link,
-                image,
-                datetime
+                img,
+                data,
+                categoriesId
+
             };
-            const response = await fetch(`http://localhost:7000/device/${todo.id}`, {
+            const response = await fetch(`http://localhost:8090/api/web/${todo.id}`, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
             });
 
-            window.location = "/";
+            window.location = "/allsite";
         } catch (err) {
             console.error(err.message);
         }
@@ -46,6 +45,21 @@ const EditDevice = ({todo}) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handelEditForm = () => (
+        setDate(todo.data) ||
+        setBrand(todo.brand) ||
+        setModel(todo.model) ||
+        setDevice(todo.device) ||
+        setOem(todo.oem) ||
+        setPrice(todo.price) ||
+        setLinkAdr(todo.link) ||
+        setImage(todo.img) ||
+        setCategoriesId(todo.categories_id)
+    )
+    useEffect(() => {
+        updateDevice()
+    }, [])
+
 
     return (
         <Fragment>
@@ -53,24 +67,31 @@ const EditDevice = ({todo}) => {
                 Edit
             </Button>
 
-            <Modal show={show} onHide={handleClose} onClick={() => setModel(todo.model)}>
+            <Modal show={show} onHide={handleClose} onClick={handelEditForm}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Modal Edit Form</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <input
+                        placeholder="Edit date"
+                        type="text"
+                        className="form-control"
+                        value={data}
+                        onChange={e => setDate(e.target.value)}
+                    />
+                    <input
+                        placeholder="Edit brand"
+                        type="text"
+                        className="form-control"
+                        value={brand}
+                        onChange={e => setBrand(e.target.value)}
+                    />
                     <input
                         placeholder="Edit model"
                         type="text"
                         className="form-control"
                         value={model}
                         onChange={e => setModel(e.target.value)}
-                    />
-                    <input
-                        placeholder="Edit country"
-                        type="text"
-                        className="form-control"
-                        value={country}
-                        onChange={e => setCountry(e.target.value)}
                     />
                     <input
                         placeholder="Edit device"
@@ -87,40 +108,13 @@ const EditDevice = ({todo}) => {
                         onChange={e => setOem(e.target.value)}
                     />
                     <input
-                        placeholder="Edit count_ebay"
+                        placeholder="Edit price"
                         type="text"
                         className="form-control"
-                        value={count_ebay}
-                        onChange={e => setCountEbay(e.target.value)}
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
                     />
-                    <input
-                        placeholder="Edit price_ebay"
-                        type="text"
-                        className="form-control"
-                        value={price_ebay}
-                        onChange={e => setPriceEbay(e.target.value)}
-                    />
-                    <input
-                        placeholder="Edit price_store"
-                        type="text"
-                        className="form-control"
-                        value={price_store}
-                        onChange={e => setPriceStore(e.target.value)}
-                    />
-                    <input
-                        placeholder="Edit count_store"
-                        type="text"
-                        className="form-control"
-                        value={count_store}
-                        onChange={e => setCountStore(e.target.value)}
-                    />
-                    <input
-                        placeholder="Edit date"
-                        type="text"
-                        className="form-control"
-                        value={datetime}
-                        onChange={e => setDateTime(e.target.value)}
-                    />
+
                     <input
                         placeholder="Edit link"
                         type="text"
@@ -132,17 +126,26 @@ const EditDevice = ({todo}) => {
                         placeholder="Edit image"
                         type="text"
                         className="form-control"
-                        value={image}
+                        value={img}
                         onChange={e => setImage(e.target.value)}
+                    />
+                    <input
+                        placeholder="Edit category"
+                        type="text"
+                        className="form-control"
+                        value={categoriesId}
+                        onChange={e => setCategoriesId(e.target.value)}
                     />
 
                 </Modal.Body>
                 <Modal.Footer>
-                    {/*<Button variant="warning" onClick={() => setModel(todo.model)}>*/}
+                    {/*<Button variant="warning" onHide={handleClose}*/}
+                    {/*        // onClick={() => setModel(todo.model)}*/}
+                    {/*>*/}
                     {/*    Close*/}
                     {/*</Button>*/}
                     <div size="sm">
-                        <Button variant="primary" onClick={e => updateDevice(e)} size="sm">
+                        <Button variant="primary" onClick={(e) => updateDevice(e)} size="sm">
                             Save Changes
                         </Button>
                     </div>

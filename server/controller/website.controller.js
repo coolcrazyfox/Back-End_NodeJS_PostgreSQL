@@ -55,7 +55,9 @@ class WebsiteController{
     // }
     async updateWebsite(req,res){
         try{
-            const {id,
+            const {id}= req.params
+            const {
+                // id,
                 brand,
                 model,
                 device,
