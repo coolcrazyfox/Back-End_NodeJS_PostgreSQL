@@ -10,7 +10,7 @@ const AllSiteTabPage = () => {
         <Fragment>
             <NavBar/>
             <div className="main_container">
-                {/*<CurrencyConverter/>*/}
+                <CurrencyConverter/>
                 <InputAllSite/>
                 <AllSiteListPage/>
 
